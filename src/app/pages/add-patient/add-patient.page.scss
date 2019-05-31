@@ -1,6 +1,8 @@
+@import '../../../global';
+
 .st-content {
     padding: 20px 15px;
-    --ion-background-color: #F1F4F4;
+    --ion-background-color: var(--whiteDarken);
 
     & form {
         float: left;
@@ -10,7 +12,7 @@
         & .st-list {
             float: left;
             margin: 10px 10px 20px;
-            //@include calc(width, '100% - 20px');
+            @include calc(width, '100% - 20px');
 
             & .st-item {
                 float: left;
@@ -18,13 +20,29 @@
                 padding: 0px;
                 margin-bottom: 10px;
                 background-color: transparent;
-                //@include border-radius(5px);
+                @include border-radius(5px);
+
+                & ion-col {
+                    --ion-grid-column-padding: 0;
+                }
 
                 & .st-label {
                     float: left;
                     width: 100%;
                     font-size: 14px;
-                    //color: var(--gray3);
+                    color: var(--green);
+
+                    & span
+                    {
+                        display: inline-block;
+                        width: 6px;
+                        height: 6px;
+                        margin-bottom: 2px;
+                        margin-right: 5px;
+                        background-color: var(--orange);
+                        @include border-radius(6px);
+                    }
+
                 }
 
                 & input.st-text
@@ -34,16 +52,104 @@
                     height: 35px;
                     line-height: 35px;
                     padding: 0px 10px;
-                    //border: 1px solid color(var(--gray1));
-                    //color: var(--gray4);
-                    //@include border-radius(5px);
-                    //@include transition(border-color, 300ms, ease-in);
-
-                    &:focus
-                    {
-                        //border-color: var(--teal1);
-                    }
+                    border: none;
+                    color: var(--green);
+                    @include border-radius(5px);
+                    @include transition(border-color, 300ms, ease-in);
                 }
+            }
+
+            & .st-item-date, & .st-item-select {
+                display: inline-block;
+                width: 100%;
+                padding: 0px;
+                margin-bottom: 10px;
+                --ion-background-color: var(--white);
+                --border-radius: 5px !important;
+
+                & ion-label {
+                    padding-left: 10px;
+                    font-size: 14px;
+                    color: var(--green);
+                }
+
+                & .datetime-text {
+                    font-size: 14px;
+                    color: var(--green);
+                    padding-right: 10px;
+                }
+
+                & ion-select
+                {
+                    font-size: 14px;
+                    color: var(--green);
+                }
+            }
+
+            & .st-addresses-wrapper {
+                border: 1px solid var(--green);
+                @include border-radius(5px);
+                display: flex;
+                padding: 5px 10px;
+                margin-bottom: 10px;
+
+                & .st-label {
+                    margin-top: 10px;
+                }
+
+                & .st-address-headline {
+                    margin: 0 0 10px 0;
+                }
+
+                & .st-remove {
+                    text-align: right;
+                    font-size: 19px;
+                    color: var(--red);
+                }
+            }
+
+            & button.st-submit
+            {
+                float: left;
+                width: 100%;
+                height: 35px;
+                line-height: 35px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 700;
+                margin-top: 20px;
+                margin-left: 5px;
+                color: var(--white);
+                @include border-radius(4px);
+                @include calc('width', '50% - 5px');
+                @include box-shadow(0px, 2px, 1px, 1px, rgba(61, 174, 181, 0.1));
+                @include linear-gradient(right, var(--orange), var(--orange2));
+            }
+
+            & button.st-cancel
+            {
+                float: left;
+                height: 35px;
+                line-height: 35px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 400;
+                margin-top: 20px;
+                margin-right: 5px;
+                color: var(--green);
+                background-color: var(--white);
+                @include border-radius(4px);
+                @include calc('width', '50% - 5px');
+                @include box-shadow(0px, 2px, 1px, 1px, rgba(61, 174, 181, 0.1));
+            }
+
+            & ion-button.st-address-button {
+                width: 100%;
+                text-align: center;
+                color: var(--green);
+                --background : var(--white);
+                --border-radius: 4px;
+                --box-shadow: 0px, 2px, 1px, 1px, rgba(61, 174, 181, 0.1);
             }
         }
     }

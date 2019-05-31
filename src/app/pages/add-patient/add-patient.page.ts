@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { doctors} from '../../../mockups/doctors';
 import { Doctor } from '../../../interfaces/doctor';
+import { AddressesType } from '../../../interfaces/addressesType';
+import { addresses } from '../../../mockups/addresses';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -19,6 +21,7 @@ export class AddPatientPage implements OnInit{
 
     objHeaderData: {title: string};
     doctors: Doctor[] = doctors;
+    addressesType: AddressesType = addresses;
 
     addPatientForm: FormGroup = new FormGroup({});
 
@@ -33,6 +36,7 @@ export class AddPatientPage implements OnInit{
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ngOnInit() {
+        console.log(this.addressesType);
         this.setupForm();
         this.formControlValueChanged();
     }
@@ -84,8 +88,8 @@ export class AddPatientPage implements OnInit{
             name: [''],
             phoneNumber: ['', [Validators.required, Validators.pattern('^\\+?[0-9\\s]+$')]],
             street: ['', Validators.required],
-            ZipCode: ['', Validators.required],
-            Country: ['', Validators.required],
+            zipCode: ['', Validators.required],
+            country: ['', Validators.required],
         };
 
         return this.formBuilder.group(addressFields);

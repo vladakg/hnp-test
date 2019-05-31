@@ -5,7 +5,7 @@
 
         <ion-list class="st-list">
 
-            <ion-grid class="st-item" >
+            <ion-grid class="st-item">
                 <ion-row>
                     <ion-col size="12">
                         <div class="st-label"><span></span>First name</div>
@@ -18,22 +18,153 @@
                 </ion-row>
             </ion-grid>
 
+            <ion-grid class="st-item">
+                <ion-row>
+                    <ion-col size="12">
+                        <div class="st-label"><span></span>Last name</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <input formControlName='lastName' type="text" class="st-text" />
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-item class="st-item-date">
+                <ion-label>Birthdate</ion-label>
+                <ion-datetime class="st-datepicker" displayFormat="D-MMM-YYYY" formControlName="birthDate" cancelText="Close" doneText="Done"></ion-datetime>
+            </ion-item>
+
+            <ion-grid class="st-item" *ngIf="addPatientForm.get('vat').validator">
+                <ion-row>
+                    <ion-col size="12">
+                        <div class="st-label"><span></span>VAT</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <input formControlName='vat' type="text" class="st-text" />
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-grid class="st-item">
+                <ion-row>
+                    <ion-col size="12">
+                        <div class="st-label"><span></span>Email</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <input formControlName='email' type="text" class="st-text" />
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-item class="st-item-select">
+                <ion-label>Doctor</ion-label>
+                <ion-select placeholder="Select Doctor" formControlName='doctor' interface="action-sheet">
+                    <ion-select-option [value]="doctor.id" *ngFor="let doctor of doctors">{{doctor.firstName + ' ' + doctor.lastName}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+
+            <div formArrayName="addresses">
+                <div [formGroupName]="i" *ngFor="let address of addPatientForm.controls.addresses.controls; let i = index;" class="st-addresses-wrapper">
+                    <ion-grid class="st-item">
+                        <ion-row>
+                            <ion-col size="8">
+                                <div class="st-label st-address-headline">Address {{ i + 1 }}</div>
+                            </ion-col>
+                            <ion-col size="4" *ngIf="i > 0">
+                                <div class="st-remove" (click)="removeInputField(i)"><ion-icon name="trash"></ion-icon></div>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-item class="st-item-select">
+                                <ion-label>Address Type</ion-label>
+                                <ion-select placeholder="Select Type" formControlName='type' disabled="true" *ngIf="i == 0">
+                                    <ion-select-option value="{{address.value.type}}" *ngFor="let addressType of addressesType">{{ addressType }}</ion-select-option>
+                                </ion-select>
+                                <ion-select placeholder="Select Type" formControlName='type' *ngIf="i > 0" interface="action-sheet">
+                                    <ion-select-option value="{{addressType}}" *ngFor="let addressType of addressesType">{{ addressType }}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-row>
+
+                        <ion-row *ngIf="address.value.type == 'WORK' || address.value.type == 'RELATIVE'">
+                            <ion-col size="12">
+                                <div class="st-label">Name</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="address.value.type == 'WORK' || address.value.type == 'RELATIVE'">
+                            <ion-col size="12">
+                                <input formControlName='name' type="text" class="st-text" />
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <div class="st-label"><span></span>Phone Number</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12">
+                                <input formControlName='phoneNumber' type="text" class="st-text" />
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <div class="st-label"><span></span>Street</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12">
+                                <input formControlName='street' type="text" class="st-text" />
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <div class="st-label"><span></span>ZIP</div>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <input formControlName='zipCode' type="text" class="st-text" />
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <div class="st-label"><span></span>Country</div>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <input formControlName='country' type="text" class="st-text" />
+                            </ion-col>
+                        </ion-row>
+
+                    </ion-grid>
+                </div>
+
+                <ion-button class="st-address-button" expand="block" (click)="addNewInputField()">Add New Address</ion-button>
+
+            </div>
+
+            <button type="button" class="st-cancel" >Cancel</button>
+            <button type="submit" class="st-submit">Submit</button>
+
         </ion-list>
 
-<!--        <input formControlName='lastName' type="text" class="form-control" placeholder="Enter Last Name" />-->
-<!--        <ion-datetime displayFormat="D-MMM-YYYY" formControlName="birthDate" cancelText="Close" doneText="Done"></ion-datetime>-->
 
-<!--        {{addPatientForm.get('vat').validator | json}}-->
-<!--        <input formControlName='vat' type="text" class="form-control" placeholder="Enter Vat" />-->
 
-<!--        <input formControlName='email' type="text" class="form-control" placeholder="Enter Email" />-->
-
-<!--        <ion-item>-->
-<!--            <ion-label>Doctor</ion-label>-->
-<!--            <ion-select placeholder="Select Doctor" formControlName='doctor'>-->
-<!--                <ion-select-option value="doctor.id" *ngFor="let doctor of doctors">{{doctor.firstName + ' ' + doctor.lastName}}</ion-select-option>-->
-<!--            </ion-select>-->
-<!--        </ion-item>-->
 
 
 <!--        <div formArrayName="addresses">-->

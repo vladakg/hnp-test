@@ -1,6 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PatientsService} from '../../services/patients';
+import {DoctorsService} from '../../services/doctors';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -9,18 +11,61 @@ import {Component} from '@angular/core';
     templateUrl: './list-patients.page.html',
     styleUrls: ['./list-patients.page.scss'],
 })
-export class ListPatientsPage {
+export class ListPatientsPage implements OnInit {
 
-    objHeaderData: {title: string};
+    objHeaderData: { title: string };
+
+    // patients: Patient[]; todo
+    // doctors: Doctor[]; todo
+    patients: any;
+    doctors: any;
+    strSearch: string;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor() {
+    constructor(private patientsService: PatientsService,
+                private doctorsService: DoctorsService) {
         this.objHeaderData = {
             title: 'List Patients Page'
         };
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ngOnInit() {
+        this.getPatients();
+        this.getDoctors();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    getPatients() {
+        this.patients = this.patientsService.getPatients();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    getDoctors() {
+        this.doctors = this.doctorsService.getDoctors();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    getDoctor(doctorID: number) {
+        const index = this.doctors.findIndex(i => i.id === doctorID);
+        return this.doctors[index].firstName + ' ' + this.doctors[index].lastName;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    getInitials(firstName: string, lastName: string) {
+        return firstName.charAt(0) + lastName.charAt(0);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    getLocaleDate(date: string) {
+        return date.toLocaleString();
+    }
 
 }

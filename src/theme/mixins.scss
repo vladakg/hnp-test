@@ -1,0 +1,124 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BORDER RADIUS 
+
+@mixin border-radius($radius: 0px)
+{
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin border-radius-custom($topLeft: 0px, $topRight: 0px, $bottomLeft: 0px, $bottomRight: 0px)
+{
+  -webkit-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+     -moz-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+      -ms-border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+          border-radius: $topLeft $topRight $bottomRight $bottomLeft;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CALCULATE
+
+@mixin calc($property, $expression)
+{
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SHADOW
+
+@mixin inset-shadow($x: 0px, $y: 0px, $blur: 2px, $spread: 2px, $color: #000000)
+{
+    -webkit-box-shadow: inset $x $y $blur $spread $color;
+    -moz-box-shadow:    inset $x $y $blur $spread $color;
+    box-shadow:         inset $x $y $blur $spread $color;
+}
+
+@mixin box-shadow($x: 0px, $y: 3px, $blur: 5px, $spread: 5px, $color: #000000)
+{
+    -webkit-box-shadow: $x $y $blur $spread $color;
+    -moz-box-shadow:    $x $y $blur $spread $color;
+    box-shadow:         $x $y $blur $spread $color;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EFFECT
+
+@mixin transition($prop, $time, $ease)
+{
+    -webkit-transition: $prop $time $ease;
+    -moz-transition:    $prop $time $ease;
+    -o-transition:      $prop $time $ease;
+    -ms-transition:     $prop $time $ease;
+    transition:         $prop $time $ease;
+}
+
+@mixin transform($rotate: 90deg, $scale: 1, $skew: 1deg, $translate: 10px)
+{
+    -webkit-transform:  rotate($rotate) scale($scale) skew($skew) translate($translate);
+    -moz-transform:     rotate($rotate) scale($scale) skew($skew) translate($translate);
+    -o-transform:       rotate($rotate) scale($scale) skew($skew) translate($translate);
+    -ms-transform:      rotate($rotate) scale($scale) skew($skew) translate($translate);
+    transform:          rotate($rotate) scale($scale) skew($skew) translate($translate);
+}
+
+@mixin fadeIn($duration)
+{
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-duration: $duration;
+    animation-name: fadeIn;
+    animation-duration: $duration;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// GRADIENT
+
+@mixin linear-gradient($direction, $startColor, $endColor)
+{
+    background: $startColor;
+    background: -webkit-linear-gradient(to $direction, $startColor , $endColor);
+    background: linear-gradient(to $direction, $startColor , $endColor);
+}
+
+@mixin radial-gradient($startColor, $endColor)
+{
+    background: $startColor;
+    background: -webkit-radial-gradient($startColor, $endColor);
+    background: -o-radial-gradient($startColor, $endColor);
+    background: -moz-radial-gradient($startColor, $endColor);
+    background: radial-gradient($startColor, $endColor);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// OTHER
+
+@mixin opacity($opacity: 0.5)
+{
+	-webkit-opacity:    $opacity;
+	-moz-opacity: 	    $opacity;
+	opacity: 		    $opacity;
+}
+
+@mixin placeholder($color: #FFFFFF, $font-size: 12px, $font-weight: 400)
+{
+	&::-webkit-input-placeholder { color: $color; font-size: $font-size; font-weight: $font-weight; }
+	&:-moz-placeholder { color: $color; font-size: $font-size; font-weight: $font-weight; }
+	&::-moz-placeholder { color: $color; font-size: $font-size; font-weight: $font-weight; }
+	&:-ms-input-placeholder { color: $color; font-size: $font-size; font-weight: $font-weight; }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

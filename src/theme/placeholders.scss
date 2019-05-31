@@ -1,0 +1,29 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLACEHOLDERS
+
+%break-word
+{
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+%text-overflow
+{
+    overflow: hidden;
+    word-wrap: break-word;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+%background-size
+{
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

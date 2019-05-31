@@ -1,5 +1,17 @@
 <app-header [objData]="objHeaderData"></app-header>
 
-<ion-content>
+<ion-content class="content">
+
+    <div class="patient" *ngFor="let patient of patients">
+        <div class="name">{{ patient.firstName }} {{ patient.lastName }}</div>
+        <div>{{ getLocaleDate(patient.registeredDate) }}</div>
+        <div> {{ getDoctor(patient.doctor) }} </div>
+        <div *ngFor="let addresse of patient.addresses; let index = index">
+            <div> {{ addresse.type }}</div>
+            <div>{{ addresse.phone }}</div>
+            <div>{{ addresse.email }}</div>
+            <div>{{ addresse.street }} {{ addresse.city }} {{ addresse.zipcode }} {{ addresse.country }}</div>
+        </div>
+    </div>
 
 </ion-content>
