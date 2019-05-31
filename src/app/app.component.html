@@ -1,34 +1,7 @@
 <ion-app>
-    <ion-split-pane>
-        <ion-menu side="end">
-            <ion-header>
-                <ion-toolbar>
-                    <ion-title>Menu</ion-title>
-                </ion-toolbar>
-            </ion-header>
-            <ion-content>
-                <ion-list>
-                    <ion-menu-toggle>
-                        <ion-item [routerDirection]="'root'" [routerLink]="['/home']">
-                            <ion-icon name="home"></ion-icon>
-                            <ion-label> Home</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle>
-                        <ion-item [routerDirection]="'root'" [routerLink]="['/add']">
-                            <ion-icon name="person-add"></ion-icon>
-                            <ion-label> Add new patient</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle>
-                        <ion-item [routerDirection]="'root'" [routerLink]="['/list']">
-                            <ion-icon name="list"></ion-icon>
-                            <ion-label> List patients</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                </ion-list>
-            </ion-content>
-        </ion-menu>
-        <ion-router-outlet main></ion-router-outlet>
-    </ion-split-pane>
+
+    <app-side-menu></app-side-menu>
+
+    <ion-router-outlet id="content"></ion-router-outlet>
+
 </ion-app>
