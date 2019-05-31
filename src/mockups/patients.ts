@@ -1,4 +1,7 @@
-export let patients = [
+import { Patient } from '../interfaces/patient';
+import { AddressesType } from '../interfaces/addressesType';
+
+export let patients: Patient[] = [
     {
         id: 1,
         registeredDate: '2018-10-13T23:50:12Z',
@@ -7,7 +10,7 @@ export let patients = [
         doctor: 1,
         addresses: [
             {
-                type: 'HOME',
+                type: AddressesType.HOME,
                 email: ' ​aaa@bb.com​',
                 phone: '+3956789910',
                 street: 'Via Tiburtina 59',
@@ -24,7 +27,7 @@ export let patients = [
         doctor: 3,
         addresses: [
             {
-                type: 'HOME',
+                type: AddressesType.HOME,
                 email: ' ​aaa@bb.com​',
                 phone: '+3933522342234',
                 street: 'Via Casilina 72',
@@ -33,7 +36,7 @@ export let patients = [
                 country: 'Italy'
             },
             {
-                type: 'WORK',
+                type: AddressesType.WORK,
                 email: ' ​aaa@bb.com​',
                 phone: '+39062231124',
                 street: 'Via Cassia 823',
@@ -50,7 +53,7 @@ export let patients = [
         doctor: 4,
         addresses: [
             {
-                type: 'HOME',
+                type: AddressesType.HOME,
                 email: ' ​aaa@bb.com​',
                 phone: '+39781123112',
                 street: 'Piazza Risorgimento 44',

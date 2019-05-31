@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -12,16 +13,84 @@ import {Component} from '@angular/core';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export class AddPatientPage {
+export class AddPatientPage implements OnInit{
 
     objHeaderData: {title: string};
 
+    addPatientForm: FormGroup = new FormGroup({});
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor() {
+    constructor(private formBuilder: FormBuilder) {
         this.objHeaderData = {
             title: 'Add New Patient Page'
         };
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ngOnInit() {
+        this.setupForm();
+        this.formControlValueChanged();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    setupForm() {
+        this.addPatientForm = this.formBuilder.group({
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            birthDate: [''],
+            vat: [null],
+            email: ['', [Validators.required, Validators.email]],
+            doctor: ['', Validators.required],
+            addresses: this.formBuilder.array([
+                this.initAddressFields()
+            ])
+
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addPatient() {
+        console.log(this.addPatientForm.status);
+        console.log(this.addPatientForm.value);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    formControlValueChanged() {
+        const vatControl = this.addPatientForm.get('vat');
+        this.addPatientForm.get('birthDate').valueChanges.subscribe(
+            (value: string) => {
+                if (value === '18') {
+                    vatControl.setValidators([Validators.required]);
+                }
+                vatControl.updateValueAndValidity();
+            });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    initAddressFields(): FormGroup {
+        return this.formBuilder.group({
+            name: ['', Validators.required]
+        });
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    addNewInputField() {
+        const control = <FormArray> this.addPatientForm.controls.addresses;
+        control.push(this.initAddressFields());
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    removeInputField(i) {
+        const control = <FormArray> this.addPatientForm.controls.addresses;
+        control.removeAt(i);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

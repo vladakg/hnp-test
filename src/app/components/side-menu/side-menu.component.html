@@ -1,4 +1,4 @@
-<ion-menu side="end" type="push" contentId="content">
+<ion-menu side="start" type="push" contentId="content">
     <ion-header>
         <ion-toolbar>
             <ion-title>Menu</ion-title>
@@ -7,19 +7,19 @@
     <ion-content>
         <ion-list>
             <ion-menu-toggle>
-                <ion-item [routerDirection]="'root'" [routerLink]="['/home']">
+                <ion-item (click)="changePage('/home')">
                     <ion-icon name="home"></ion-icon>
                     <ion-label> Home</ion-label>
                 </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle>
-                <ion-item [routerDirection]="'root'" [routerLink]="['/add']">
+                <ion-item (click)="changePage('/add')">
                     <ion-icon name="person-add"></ion-icon>
                     <ion-label> Add new patient</ion-label>
                 </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle>
-                <ion-item [routerDirection]="'root'" [routerLink]="['/list']">
+                <ion-item (click)="changePage('/list')">
                     <ion-icon name="list"></ion-icon>
                     <ion-label> List patients</ion-label>
                 </ion-item>

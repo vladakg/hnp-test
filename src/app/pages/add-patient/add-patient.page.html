@@ -1,5 +1,19 @@
 <app-header [objData]="objHeaderData"></app-header>
 
 <ion-content>
+    <form (ngSubmit)='addPatient()' [formGroup]='addPatientForm' novalidate class="form">
+        <input formControlName='firstName' type="text" class="form-control" placeholder="Enter First Name" />
 
+        <input formControlName='lastName' type="text" class="form-control" placeholder="Enter Last Name" />
+        <input formControlName='birthDate' type="text" class="form-control" placeholder="Enter BirthDate" />
+        <input formControlName='vat' type="text" class="form-control" placeholder="Enter Vat" />
+        <input formControlName='email' type="text" class="form-control" placeholder="Enter Email" />
+        <input formControlName='doctor' type="text" class="form-control" placeholder="Enter Email" />
+
+
+        <button (click)="addNewInputField()">Add a new address</button>
+
+
+        <button class="btn btn-default">Submit</button>
+    </form>
 </ion-content>
