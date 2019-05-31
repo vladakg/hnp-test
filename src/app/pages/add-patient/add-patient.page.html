@@ -1,19 +1,57 @@
 <app-header [objData]="objHeaderData"></app-header>
 
-<ion-content>
-    <form (ngSubmit)='addPatient()' [formGroup]='addPatientForm' novalidate class="form">
-        <input formControlName='firstName' type="text" class="form-control" placeholder="Enter First Name" />
+<ion-content class="st-content" no-bounce>
+    <form (ngSubmit)='addPatient()' [formGroup]='addPatientForm'>
 
-        <input formControlName='lastName' type="text" class="form-control" placeholder="Enter Last Name" />
-        <input formControlName='birthDate' type="text" class="form-control" placeholder="Enter BirthDate" />
-        <input formControlName='vat' type="text" class="form-control" placeholder="Enter Vat" />
-        <input formControlName='email' type="text" class="form-control" placeholder="Enter Email" />
-        <input formControlName='doctor' type="text" class="form-control" placeholder="Enter Email" />
+        <ion-list class="st-list">
+
+            <ion-grid class="st-item" >
+                <ion-row>
+                    <ion-col size="12">
+                        <div class="st-label"><span></span>First name</div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <input formControlName='firstName' type="text" class="st-text" />
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+        </ion-list>
+
+<!--        <input formControlName='lastName' type="text" class="form-control" placeholder="Enter Last Name" />-->
+<!--        <ion-datetime displayFormat="D-MMM-YYYY" formControlName="birthDate" cancelText="Close" doneText="Done"></ion-datetime>-->
+
+<!--        {{addPatientForm.get('vat').validator | json}}-->
+<!--        <input formControlName='vat' type="text" class="form-control" placeholder="Enter Vat" />-->
+
+<!--        <input formControlName='email' type="text" class="form-control" placeholder="Enter Email" />-->
+
+<!--        <ion-item>-->
+<!--            <ion-label>Doctor</ion-label>-->
+<!--            <ion-select placeholder="Select Doctor" formControlName='doctor'>-->
+<!--                <ion-select-option value="doctor.id" *ngFor="let doctor of doctors">{{doctor.firstName + ' ' + doctor.lastName}}</ion-select-option>-->
+<!--            </ion-select>-->
+<!--        </ion-item>-->
 
 
-        <button (click)="addNewInputField()">Add a new address</button>
+<!--        <div formArrayName="addresses">-->
+
+<!--            <section [formGroupName]="i" *ngFor="let address of addPatientForm.controls.addresses.controls; let i = index;">-->
+<!--                <ion-item-group>-->
+<!--                    <ion-item>-->
+<!--                        <ion-label>{{address.value | json}}</ion-label>-->
+<!--                    </ion-item>-->
+
+<!--                    <span ion-button *ngIf="addPatientForm.controls.addresses.length > 1 && i > 0" (click)="removeInputField(i)"><ion-icon name="close"></ion-icon>Remove</span>-->
+<!--                </ion-item-group>-->
+<!--            </section>-->
+<!--        </div>-->
+
+<!--        <ion-button (click)="addNewInputField()">Add a new address</ion-button>-->
 
 
-        <button class="btn btn-default">Submit</button>
+<!--        <button class="btn btn-default">Submit</button>-->
     </form>
 </ion-content>

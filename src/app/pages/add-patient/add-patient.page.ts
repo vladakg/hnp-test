@@ -1,7 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { doctors} from '../../../mockups/doctors';
+import { Doctor } from '../../../interfaces/doctor';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,6 +18,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class AddPatientPage implements OnInit{
 
     objHeaderData: {title: string};
+    doctors: Doctor[] = doctors;
 
     addPatientForm: FormGroup = new FormGroup({});
 
@@ -41,11 +44,11 @@ export class AddPatientPage implements OnInit{
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             birthDate: [''],
-            vat: [null],
+            vat: [''],
             email: ['', [Validators.required, Validators.email]],
             doctor: ['', Validators.required],
             addresses: this.formBuilder.array([
-                this.initAddressFields()
+                this.createAddressFields()
             ])
 
         });
@@ -54,7 +57,6 @@ export class AddPatientPage implements OnInit{
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addPatient() {
-        console.log(this.addPatientForm.status);
         console.log(this.addPatientForm.value);
     }
 
@@ -64,8 +66,11 @@ export class AddPatientPage implements OnInit{
         const vatControl = this.addPatientForm.get('vat');
         this.addPatientForm.get('birthDate').valueChanges.subscribe(
             (value: string) => {
-                if (value === '18') {
+                const birthday = +new Date(value);
+                if ((Date.now() - birthday) / (24 * 3600 * 365.25 * 1000) > 18) {
                     vatControl.setValidators([Validators.required]);
+                } else {
+                    vatControl.clearValidators();
                 }
                 vatControl.updateValueAndValidity();
             });
@@ -73,24 +78,31 @@ export class AddPatientPage implements OnInit{
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    initAddressFields(): FormGroup {
-        return this.formBuilder.group({
-            name: ['', Validators.required]
-        });
+    createAddressFields(): FormGroup {
+        const addressFields = {
+            type: [(this.addPatientForm.controls.addresses && this.addPatientForm.controls.addresses.value.length > 0) ? '' : 'HOME', Validators.required],
+            name: [''],
+            phoneNumber: ['', [Validators.required, Validators.pattern('^\\+?[0-9\\s]+$')]],
+            street: ['', Validators.required],
+            ZipCode: ['', Validators.required],
+            Country: ['', Validators.required],
+        };
+
+        return this.formBuilder.group(addressFields);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addNewInputField() {
         const control = <FormArray> this.addPatientForm.controls.addresses;
-        control.push(this.initAddressFields());
+        control.push(this.createAddressFields());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    removeInputField(i) {
+    removeInputField(index: number) {
         const control = <FormArray> this.addPatientForm.controls.addresses;
-        control.removeAt(i);
+        control.removeAt(index);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

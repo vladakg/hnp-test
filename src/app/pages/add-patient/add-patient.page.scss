@@ -1,0 +1,50 @@
+.st-content {
+    padding: 20px 15px;
+    --ion-background-color: #F1F4F4;
+
+    & form {
+        float: left;
+        width: 100%;
+        height: auto;
+
+        & .st-list {
+            float: left;
+            margin: 10px 10px 20px;
+            //@include calc(width, '100% - 20px');
+
+            & .st-item {
+                float: left;
+                width: 100%;
+                padding: 0px;
+                margin-bottom: 10px;
+                background-color: transparent;
+                //@include border-radius(5px);
+
+                & .st-label {
+                    float: left;
+                    width: 100%;
+                    font-size: 14px;
+                    //color: var(--gray3);
+                }
+
+                & input.st-text
+                {
+                    float: left;
+                    width: 100%;
+                    height: 35px;
+                    line-height: 35px;
+                    padding: 0px 10px;
+                    //border: 1px solid color(var(--gray1));
+                    //color: var(--gray4);
+                    //@include border-radius(5px);
+                    //@include transition(border-color, 300ms, ease-in);
+
+                    &:focus
+                    {
+                        //border-color: var(--teal1);
+                    }
+                }
+            }
+        }
+    }
+}
