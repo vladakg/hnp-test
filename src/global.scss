@@ -14,7 +14,30 @@
 @import '../src/theme/placeholders.scss';
 @import '../src/theme/fonts/montserrat.scss';
 
-*
-{
+* {
     font-family: 'Montserrat', sans-serif !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.st-danger {
+    --background: var(--red);
+}
+
+.st-success {
+    --background: var(--green);
+}
+
+.picker-opt.picker-opt-selected, .picker-button.sc-ion-picker-md {
+    color: var(--green);
+}
+
+.item-interactive.ion-invalid {
+    --highlight-background: var(--white);
+}
+
+.action-sheet-button.sc-ion-action-sheet-md {
+    color: var(--green);
 }

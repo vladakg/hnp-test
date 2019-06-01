@@ -8,9 +8,12 @@ export let patients: Patient[] = [
         firstName: 'Mario',
         lastName: 'Rossi',
         doctor: 1,
+        birthDate: '',
+        vat: '',
         addresses: [
             {
                 type: AddressesType.HOME,
+                name: '',
                 email: ' ​aaa@bb.com​',
                 phone: '+3956789910',
                 street: 'Via Tiburtina 59',
@@ -25,9 +28,12 @@ export let patients: Patient[] = [
         firstName: 'Francesco',
         lastName: 'Giuliani',
         doctor: 3,
+        birthDate: '',
+        vat: '',
         addresses: [
             {
                 type: AddressesType.HOME,
+                name: '',
                 email: ' ​aaa@bb.com​',
                 phone: '+3933522342234',
                 street: 'Via Casilina 72',
@@ -37,6 +43,7 @@ export let patients: Patient[] = [
             },
             {
                 type: AddressesType.WORK,
+                name: '',
                 email: ' ​aaa@bb.com​',
                 phone: '+39062231124',
                 street: 'Via Cassia 823',
@@ -51,10 +58,13 @@ export let patients: Patient[] = [
         firstName: 'Elico',
         lastName: 'Maikenberg',
         doctor: 4,
+        birthDate: '',
+        vat: '',
         addresses: [
             {
                 type: AddressesType.HOME,
-                email: ' ​aaa@bb.com​',
+                name: '',
+                email: ' aaa@bb.com​',
                 phone: '+39781123112',
                 street: 'Piazza Risorgimento 44',
                 city: 'Rome',

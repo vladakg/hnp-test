@@ -13,7 +13,8 @@
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
-                        <input formControlName='firstName' type="text" class="st-text" />
+                        <input formControlName='firstName' type="text" class="st-text" [ngClass]="{'st-invalidate':addPatientForm.get('firstName').hasError('required') && formSubmitted}" />
+                        <div class="st-danger" *ngIf="addPatientForm.get('firstName').hasError('required') && formSubmitted">Field is required</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -26,7 +27,8 @@
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
-                        <input formControlName='lastName' type="text" class="st-text" />
+                        <input formControlName='lastName' type="text" class="st-text" [ngClass]="{'st-invalidate':addPatientForm.get('lastName').hasError('required') && formSubmitted}" />
+                        <div class="st-danger" *ngIf="addPatientForm.get('lastName').hasError('required') && formSubmitted">Field is required</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -44,30 +46,21 @@
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
-                        <input formControlName='vat' type="text" class="st-text" />
+                        <input formControlName='vat' type="text" class="st-text" [ngClass]="{'st-invalidate':addPatientForm.get('vat').hasError('required') && formSubmitted}" />
+                        <div class="st-danger" *ngIf="addPatientForm.get('vat').hasError('required') && formSubmitted">Field is required</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>
 
             <ion-grid class="st-item">
-                <ion-row>
-                    <ion-col size="12">
-                        <div class="st-label"><span></span>Email</div>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col size="12">
-                        <input formControlName='email' type="text" class="st-text" />
-                    </ion-col>
-                </ion-row>
+                <ion-item class="st-item-select no-margin" [ngClass]="{'st-invalidate':addPatientForm.get('doctor').hasError('required') && formSubmitted}">
+                    <ion-label><span></span>Doctor</ion-label>
+                    <ion-select placeholder="Select Doctor" formControlName='doctor' interface="action-sheet">
+                        <ion-select-option [value]="doctor.id" *ngFor="let doctor of doctors">{{doctor.firstName + ' ' + doctor.lastName}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <div class="st-danger" *ngIf="addPatientForm.get('doctor').hasError('required') && formSubmitted">Field is required</div>
             </ion-grid>
-
-            <ion-item class="st-item-select">
-                <ion-label>Doctor</ion-label>
-                <ion-select placeholder="Select Doctor" formControlName='doctor' interface="action-sheet">
-                    <ion-select-option [value]="doctor.id" *ngFor="let doctor of doctors">{{doctor.firstName + ' ' + doctor.lastName}}</ion-select-option>
-                </ion-select>
-            </ion-item>
 
 
             <div formArrayName="addresses">
@@ -83,7 +76,7 @@
                         </ion-row>
 
                         <ion-row>
-                            <ion-item class="st-item-select">
+                            <ion-item class="st-item-select no-margin" [ngClass]="{'st-invalidate':address.get('type').hasError('required') && formSubmitted}">
                                 <ion-label>Address Type</ion-label>
                                 <ion-select placeholder="Select Type" formControlName='type' disabled="true" *ngIf="i == 0">
                                     <ion-select-option value="{{address.value.type}}" *ngFor="let addressType of addressesType">{{ addressType }}</ion-select-option>
@@ -92,6 +85,7 @@
                                     <ion-select-option value="{{addressType}}" *ngFor="let addressType of addressesType">{{ addressType }}</ion-select-option>
                                 </ion-select>
                             </ion-item>
+                            <div class="st-danger" *ngIf="address.get('type').hasError('required') && formSubmitted">Field is required</div>
                         </ion-row>
 
                         <ion-row *ngIf="address.value.type == 'WORK' || address.value.type == 'RELATIVE'">
@@ -107,12 +101,29 @@
 
                         <ion-row>
                             <ion-col size="12">
+                                <div class="st-label"><span></span>Email</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12">
+                                <input formControlName='email' type="text" class="st-text" [ngClass]="{'st-invalidate':(address.get('email').hasError('required') ||
+                                                                                                            address.get('email').hasError('email')) && formSubmitted}" />
+                                <div class="st-danger" *ngIf="address.get('email').hasError('required') && formSubmitted">Field is required</div>
+                                <div class="st-danger" *ngIf="address.get('email').hasError('email') && formSubmitted">Invalid email format</div>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
                                 <div class="st-label"><span></span>Phone Number</div>
                             </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col size="12">
-                                <input formControlName='phoneNumber' type="text" class="st-text" />
+                                <input formControlName='phone' type="text" class="st-text" (focusout)="checkPhoneNumber(i)" [ngClass]="{'st-invalidate':(address.get('phone').hasError('required') ||
+                                                                                                                                  address.get('phone').hasError('pattern')) && formSubmitted}" />
+                                <div class="st-danger" *ngIf="address.get('phone').hasError('required') && formSubmitted">Field is required</div>
+                                <div class="st-danger" *ngIf="address.get('phone').hasError('pattern') && formSubmitted">Invalid Phone Number Format</div>
                             </ion-col>
                         </ion-row>
 
@@ -123,7 +134,20 @@
                         </ion-row>
                         <ion-row>
                             <ion-col size="12">
-                                <input formControlName='street' type="text" class="st-text" />
+                                <input formControlName='street' type="text" class="st-text" [ngClass]="{'st-invalidate':address.get('street').hasError('required') && formSubmitted}" />
+                                <div class="st-danger" *ngIf="address.get('street').hasError('required') && formSubmitted">Field is required</div>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <div class="st-label"><span></span>City</div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="12">
+                                <input formControlName='city' type="text" class="st-text" [ngClass]="{'st-invalidate':address.get('city').hasError('required') && formSubmitted}" />
+                                <div class="st-danger" *ngIf="address.get('city').hasError('required') && formSubmitted">Field is required</div>
                             </ion-col>
                         </ion-row>
 
@@ -135,7 +159,8 @@
 
                         <ion-row>
                             <ion-col size="12">
-                                <input formControlName='zipCode' type="text" class="st-text" />
+                                <input formControlName='zipcode' type="text" class="st-text" [ngClass]="{'st-invalidate':address.get('zipcode').hasError('required') && formSubmitted}" />
+                                <div class="st-danger" *ngIf="address.get('zipcode').hasError('required') && formSubmitted">Field is required</div>
                             </ion-col>
                         </ion-row>
 
@@ -147,7 +172,8 @@
 
                         <ion-row>
                             <ion-col size="12">
-                                <input formControlName='country' type="text" class="st-text" />
+                                <input formControlName='country' type="text" class="st-text" [ngClass]="{'st-invalidate':address.get('country').hasError('required') && formSubmitted}" />
+                                <div class="st-danger" *ngIf="address.get('country').hasError('required') && formSubmitted">Field is required</div>
                             </ion-col>
                         </ion-row>
 
@@ -158,8 +184,8 @@
 
             </div>
 
-            <button type="button" class="st-cancel" >Cancel</button>
-            <button type="submit" class="st-submit">Submit</button>
+            <button type="button" class="st-cancel" (click)="cancelAddPatient()">Cancel</button>
+            <button type="submit" class="st-submit">Save</button>
 
         </ion-list>
 

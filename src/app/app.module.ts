@@ -11,6 +11,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {ComponentsModule} from './components/components.module';
 import {PatientsService} from './services/patients';
 import {DoctorsService} from './services/doctors';
+import {GlobalComponents} from './components/global.components';
 
 @NgModule({
     declarations: [AppComponent],
@@ -26,7 +27,8 @@ import {DoctorsService} from './services/doctors';
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         PatientsService,
-        DoctorsService
+        DoctorsService,
+        GlobalComponents
     ],
     bootstrap: [AppComponent]
 })

@@ -6,6 +6,10 @@ import { doctors} from '../../../mockups/doctors';
 import { Doctor } from '../../../interfaces/doctor';
 import { AddressesType } from '../../../interfaces/addressesType';
 import { addresses } from '../../../mockups/addresses';
+import { NavController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+import { PatientsService } from '../../services/patients';
+import { GlobalComponents } from '../../components/global.components';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -21,13 +25,18 @@ export class AddPatientPage implements OnInit{
 
     objHeaderData: {title: string};
     doctors: Doctor[] = doctors;
-    addressesType: AddressesType = addresses;
+    addressesType: AddressesType[] = addresses;
+    formSubmitted = false;
 
     addPatientForm: FormGroup = new FormGroup({});
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+                private navCtrl: NavController,
+                private toastController: ToastController,
+                private patientService: PatientsService,
+                private globalComponents: GlobalComponents) {
         this.objHeaderData = {
             title: 'Add New Patient Page'
         };
@@ -36,7 +45,6 @@ export class AddPatientPage implements OnInit{
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ngOnInit() {
-        console.log(this.addressesType);
         this.setupForm();
         this.formControlValueChanged();
     }
@@ -49,7 +57,6 @@ export class AddPatientPage implements OnInit{
             lastName: ['', Validators.required],
             birthDate: [''],
             vat: [''],
-            email: ['', [Validators.required, Validators.email]],
             doctor: ['', Validators.required],
             addresses: this.formBuilder.array([
                 this.createAddressFields()
@@ -61,7 +68,13 @@ export class AddPatientPage implements OnInit{
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     addPatient() {
-        console.log(this.addPatientForm.value);
+        this.formSubmitted = true;
+        if (!this.addPatientForm.valid) {
+            this.globalComponents.toast('Please fill all required fields', 'danger', 'top', 3000);
+        } else {
+            this.patientService.addPatient(this.addPatientForm.value);
+            this.globalComponents.toast('You have successfully added patient', 'success', 'top', 3000);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,9 +99,11 @@ export class AddPatientPage implements OnInit{
         const addressFields = {
             type: [(this.addPatientForm.controls.addresses && this.addPatientForm.controls.addresses.value.length > 0) ? '' : 'HOME', Validators.required],
             name: [''],
-            phoneNumber: ['', [Validators.required, Validators.pattern('^\\+?[0-9\\s]+$')]],
+            email: ['', [Validators.required, Validators.email]],
+            phone: ['', [Validators.required, Validators.pattern('^\\+?[0-9\\s]+$')]],
             street: ['', Validators.required],
-            zipCode: ['', Validators.required],
+            city: ['', Validators.required],
+            zipcode: ['', Validators.required],
             country: ['', Validators.required],
         };
 
@@ -107,6 +122,21 @@ export class AddPatientPage implements OnInit{
     removeInputField(index: number) {
         const control = <FormArray> this.addPatientForm.controls.addresses;
         control.removeAt(index);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    cancelAddPatient() {
+        this.navCtrl.navigateRoot('/home');
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    checkPhoneNumber(index: number) {
+        let phone = this.addPatientForm.value.addresses[index].phone;
+        if (phone.charAt(0) != '+') {
+            this.addPatientForm.get('addresses.' + index +'.phone').patchValue('+' + phone);
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
