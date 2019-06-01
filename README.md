@@ -26,7 +26,7 @@ Run
 
 In default browser will be open `http://localhost:8100`
 
-#Build Application
+# Build Application
 
 Add Platform
 
