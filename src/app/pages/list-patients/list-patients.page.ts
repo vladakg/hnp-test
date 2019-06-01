@@ -1,8 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-import {Component, OnInit} from '@angular/core';
-import {PatientsService} from '../../services/patients';
-import {DoctorsService} from '../../services/doctors';
+import { Component, OnInit } from '@angular/core';
+import { PatientsService } from '../../services/patients';
+import { DoctorsService } from '../../services/doctors';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { Patient } from '../../../interfaces/patient';
+import { Doctor } from '../../../interfaces/doctor';
+import { NavController } from '@ionic/angular';
+import { GlobalComponents } from '../../components/global.components';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,18 +20,18 @@ export class ListPatientsPage implements OnInit {
 
     objHeaderData: { title: string };
 
-    // patients: Patient[]; todo
-    // doctors: Doctor[]; todo
-    patients: any;
-    doctors: any;
-    strSearch: string;
+    patients: Patient[];
+    doctors: Doctor[];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     constructor(private patientsService: PatientsService,
-                private doctorsService: DoctorsService) {
+                private doctorsService: DoctorsService,
+                private emailComposer: EmailComposer,
+                private navCtrl: NavController,
+                private globalComponents: GlobalComponents) {
         this.objHeaderData = {
-            title: 'List Patients Page'
+            title: 'List Patients'
         };
     }
 
@@ -41,31 +46,54 @@ export class ListPatientsPage implements OnInit {
 
     getPatients() {
         this.patients = this.patientsService.getPatients();
+
+        // in production
+        // this.patientsService.getPatients()
+        //     .subscribe(
+        //         (response: any) => {
+        //             this.patients = response.patients;
+        //         },
+        //         error => {
+        //             this.globalComponents.toast('Something went wrong', 'danger', 'success', 3000);
+        //         }
+        //     );
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     getDoctors() {
         this.doctors = this.doctorsService.getDoctors();
+
+        // in production
+        // this.doctorsService.getDoctors()
+        //     .subscribe(
+        //         (response: any) => {
+        //             this.doctors = response.doctors;
+        //         },
+        //         error => {
+        //             this.globalComponents.toast('Something went wrong', 'danger', 'success', 3000);
+        //         }
+        //     );
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    getDoctor(doctorID: number) {
-        const index = this.doctors.findIndex(i => i.id === doctorID);
-        return this.doctors[index].firstName + ' ' + this.doctors[index].lastName;
+    getDoctorName(id: number) {
+        return this.doctorsService.getDoctorName(id);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    getInitials(firstName: string, lastName: string) {
-        return firstName.charAt(0) + lastName.charAt(0);
+    sendEmail(email) {
+        this.emailComposer.open(email);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    getLocaleDate(date: string) {
-        return date.toLocaleString();
+    goOnpatient(id: number) {
+        this.navCtrl.navigateRoot(['/profile', id]);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

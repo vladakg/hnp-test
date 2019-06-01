@@ -3,32 +3,22 @@
 .content {
     --ion-background-color: var(--whiteDarken);
 
-    div.patient {
-        position: relative;
-        float: left;
-        padding: 5px;
-        margin: 10px 15px 0px;
+    & .st-patient {
         background-color: var(--white);
-        @include fadeIn(500ms);
-        @include border-radius(5px);
-        @include calc('width', '100% - 30px');
-        @include box-shadow(0px, 2px, 1px, 1px, rgba(61, 174, 181, 0.1));
 
-        &:nth-child(1) {
-            margin-top: 15px;
-        }
-
-        &:nth-last-child(1) {
-            margin-bottom: 15px;
-        }
-
-        & div.name {
-            float: left;
-            width: 100%;
-            font-size: 14px;
+        & .st-name {
+            font-size: 16px;
             font-weight: 700;
             color: var(--green);
             @extend %text-overflow;
+        }
+
+        & .st-addresses {
+            margin-top: 10px;
+
+            & .st-type {
+                color: var(--green);
+            }
         }
     }
 }

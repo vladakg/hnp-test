@@ -2,16 +2,21 @@
 
 <ion-content class="content">
 
-    <div class="patient" *ngFor="let patient of patients">
-        <div class="name">{{ patient.firstName }} {{ patient.lastName }}</div>
-        <div>{{ getLocaleDate(patient.registeredDate) }}</div>
-        <div> {{ getDoctor(patient.doctor) }} </div>
-        <div *ngFor="let addresse of patient.addresses; let index = index">
-            <div> {{ addresse.type }}</div>
-            <div>{{ addresse.phone }}</div>
-            <div>{{ addresse.email }}</div>
-            <div>{{ addresse.street }} {{ addresse.city }} {{ addresse.zipcode }} {{ addresse.country }}</div>
-        </div>
-    </div>
+    <ion-card *ngFor="let patient of patients" class="st-patient">
+        <ion-card-header>
+            <ion-card-subtitle>{{ patient.registeredDate | date:'medium' }}</ion-card-subtitle>
+            <ion-card-title class="st-name" (click)="goOnpatient(patient.id)">{{ patient.firstName }} {{ patient.lastName }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <div>Doctor: {{ getDoctorName(patient.doctor) }} </div>
+            <div *ngFor="let address of patient.addresses; let index = index" class="st-addresses">
+                <div class="st-type">{{ address.type }}</div>
+                <div>{{ address.phone }}</div>
+                <div (click)="sendEmail(address.email)">{{ address.email }}</div>
+                <div>{{ address.street }} {{ address.city }} {{ address.zipcode }} {{ address.country }}</div>
+            </div>
+        </ion-card-content>
+    </ion-card>
 
 </ion-content>

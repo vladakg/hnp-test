@@ -1,27 +1,27 @@
 <ion-menu side="start" type="push" contentId="content">
     <ion-header>
-        <ion-toolbar>
-            <ion-title>Menu</ion-title>
+        <ion-toolbar class="st-sidemenu-content">
+            <ion-title>HNP Test</ion-title>
         </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content class="st-sidemenu-content">
         <ion-list>
             <ion-menu-toggle>
-                <ion-item (click)="changePage('/home')">
-                    <ion-icon name="home"></ion-icon>
-                    <ion-label>Home</ion-label>
+                <ion-item (click)="changePage('/home')" class="st-item">
+                    <ion-icon name="home" class="st-icon"></ion-icon>
+                    <ion-label class="st-label">Home</ion-label>
                 </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle>
-                <ion-item (click)="changePage('/add')">
-                    <ion-icon name="person-add"></ion-icon>
-                    <ion-label>Add new patient</ion-label>
+                <ion-item (click)="changePage('/add')" class="st-item">
+                    <ion-icon name="person-add" class="st-icon"></ion-icon>
+                    <ion-label class="st-label">Add new patient</ion-label>
                 </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle>
-                <ion-item (click)="changePage('/list')">
-                    <ion-icon name="list"></ion-icon>
-                    <ion-label>List patients</ion-label>
+                <ion-item (click)="changePage('/list')" class="st-item">
+                    <ion-icon name="list" class="st-icon"></ion-icon>
+                    <ion-label class="st-label">List patients</ion-label>
                 </ion-item>
             </ion-menu-toggle>
         </ion-list>

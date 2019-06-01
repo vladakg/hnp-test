@@ -17,7 +17,7 @@ export class HomePage {
 
     constructor() {
         this.objHeaderData = {
-                title: 'Home Page'
+                title: 'Home'
             };
     }
 

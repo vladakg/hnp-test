@@ -38,7 +38,7 @@ export class AddPatientPage implements OnInit{
                 private patientService: PatientsService,
                 private globalComponents: GlobalComponents) {
         this.objHeaderData = {
-            title: 'Add New Patient Page'
+            title: 'Add New Patient'
         };
     }
 
@@ -74,6 +74,19 @@ export class AddPatientPage implements OnInit{
         } else {
             this.patientService.addPatient(this.addPatientForm.value);
             this.globalComponents.toast('You have successfully added patient', 'success', 'top', 3000);
+            this.navCtrl.navigateRoot('/home');
+
+            // in production
+            // this.patientsService.addPatient(this.addPatientForm.value)
+            //     .subscribe(
+            //         (response: any) => {
+            //             this.globalComponents.toast('You have successfully added patient', 'success', 'top', 3000);
+            //             this.navCtrl.navigateRoot('/home');
+            //         },
+            //         error => {
+            //             this.globalComponents.toast('Something went wrong', 'danger', 'success', 3000);
+            //         }
+            //     );
         }
     }
 
@@ -133,9 +146,9 @@ export class AddPatientPage implements OnInit{
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     checkPhoneNumber(index: number) {
-        let phone = this.addPatientForm.value.addresses[index].phone;
-        if (phone.charAt(0) != '+') {
-            this.addPatientForm.get('addresses.' + index +'.phone').patchValue('+' + phone);
+        const phone = this.addPatientForm.value.addresses[index].phone;
+        if (phone.charAt(0) !== '+' && phone !== '') {
+            this.addPatientForm.get('addresses.' + index + '.phone').patchValue('+39' + phone);
         }
     }
 

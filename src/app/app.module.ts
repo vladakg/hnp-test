@@ -12,6 +12,8 @@ import {ComponentsModule} from './components/components.module';
 import {PatientsService} from './services/patients';
 import {DoctorsService} from './services/doctors';
 import {GlobalComponents} from './components/global.components';
+import {EmailComposer} from '@ionic-native/email-composer/ngx';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [AppComponent],
@@ -20,7 +22,8 @@ import {GlobalComponents} from './components/global.components';
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        ComponentsModule
+        ComponentsModule,
+        HttpClientModule
     ],
     providers: [
         StatusBar,
@@ -28,7 +31,8 @@ import {GlobalComponents} from './components/global.components';
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         PatientsService,
         DoctorsService,
-        GlobalComponents
+        GlobalComponents,
+        EmailComposer
     ],
     bootstrap: [AppComponent]
 })

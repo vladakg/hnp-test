@@ -1,0 +1,47 @@
+@import '../../../global';
+
+.st-content {
+    padding: 20px 15px;
+
+    & .st-list {
+        float: left;
+        margin: 10px 10px 20px;
+        @include calc(width, '100% - 20px');
+
+        & .st-item {
+            float: left;
+            width: 100%;
+            padding: 0px;
+            margin-bottom: 10px;
+            background-color: transparent;
+            @include border-radius(5px);
+
+            & ion-col {
+                --ion-grid-column-padding: 0;
+            }
+
+            & .st-label {
+                float: left;
+                width: 100%;
+                font-size: 14px;
+                color: var(--green);
+            }
+        }
+
+        & .st-addresses-wrapper {
+            border: 1px solid var(--green);
+            @include border-radius(5px);
+            display: flex;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+
+            & .st-label {
+                margin-top: 10px;
+            }
+
+            & .st-address-headline {
+                margin: 0 0 10px 0;
+            }
+        }
+    }
+}

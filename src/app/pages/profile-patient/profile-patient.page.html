@@ -1,5 +1,143 @@
 <app-header [objData]="objHeaderData"></app-header>
 
-<ion-content>
+<ion-content class="st-content" no-bounce>
+
+    <ion-list class="st-list">
+
+        <ion-grid class="st-item">
+            <ion-row>
+                <ion-col size="12">
+                    <div class="st-label">First name</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <span>{{patient.firstName}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="st-item">
+            <ion-row>
+                <ion-col size="12">
+                    <div class="st-label">Last name</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <span>{{patient.lastName}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="st-item">
+            <ion-row>
+                <ion-col size="12">
+                    <div class="st-label">Birthdate</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <span>{{patient.birthDate | date:'medium'}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="st-item">
+            <ion-row>
+                <ion-col size="12">
+                    <div class="st-label">VAT</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <span>{{patient.vat}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="st-item">
+            <ion-row>
+                <ion-col size="12">
+                    <div class="st-label">Doctor</div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <span>{{getDoctorName(patient.doctor)}}</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+
+        <div *ngFor="let address of patient.addresses; let i = index;" class="st-addresses-wrapper">
+            <ion-grid class="st-item">
+                <ion-row>
+                    <ion-col size="8">
+                        <div class="st-label st-address-headline">Address {{ i + 1 }}</div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">Type</div>
+                    <ion-col size="12">
+                        <span>{{address.type}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">Name</div>
+                    <ion-col size="12">
+                        <span>{{address.name}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">Email</div>
+                    <ion-col size="12">
+                        <span>{{address.email}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">Phone Number</div>
+                    <ion-col size="12">
+                        <span>{{address.phone}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">Street</div>
+                    <ion-col size="12">
+                        <span>{{address.street}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">City</div>
+                    <ion-col size="12">
+                        <span>{{address.city}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">ZIP</div>
+                    <ion-col size="12">
+                        <span>{{address.zipcode}}</span>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <div class="st-label">Country</div>
+                    <ion-col size="12">
+                        <span>{{address.country}}</span>
+                    </ion-col>
+                </ion-row>
+
+            </ion-grid>
+        </div>
+
+
+    </ion-list>
 
 </ion-content>

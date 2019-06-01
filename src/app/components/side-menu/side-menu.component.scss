@@ -1,3 +1,23 @@
-ion-label {
-    margin-left: 5px;
+@import '../../../global';
+
+.st-sidemenu-content {
+    --background: var(--sideMenu);
+    color: var(--white);
+
+    & ion-list {
+        background: transparent !important;
+
+        & .st-item {
+            --background: transparent !important;
+
+            & .st-label {
+                margin-left: 10px;
+                color: var(--white);
+            }
+
+            & .st-icon {
+                color: var(--sideMenuIcon);
+            }
+        }
+    }
 }
